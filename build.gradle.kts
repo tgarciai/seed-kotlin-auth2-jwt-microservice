@@ -15,8 +15,9 @@ sentry {
 	// code as part of your stack traces in Sentry.
 	includeSourceContext = true
 
-	org = "tirso-garcia"
+	org = System.getenv("SENTRY_ORG")
 	projectName = "kotling-spring-boot"
+	authToken = System.getenv("SENTRY_AUTH_KEY")
 }
 
 group = "com.cleansoftware"
@@ -43,6 +44,7 @@ dependencies {
 	implementation("io.sentry:sentry-spring-boot-starter-jakarta")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.liquibase:liquibase-core")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 	runtimeOnly("org.postgresql:postgresql")
