@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 
 plugins {
 	id("org.springframework.boot") version "3.1.2"
@@ -9,8 +11,15 @@ plugins {
 	kotlin("plugin.jpa") version "1.8.22"
 }
 
+apply(plugin = "java")
+
 group = "com.cleansoftware"
 version = "0.0.1-SNAPSHOT"
+
+tasks.named<BootJar>("bootJar") {
+	mainClass.set("com.cleansoftware.seed.SeedApplicationKt")
+	archiveFileName.set("app.jar")
+}
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
@@ -62,16 +71,10 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks {
-	bootJar {
-		mainClass = "com.cleansoftware.seed.SeedApplication"
-		archiveFileName.set("app.jar")
-	}
-}
-
 sentry {
 	includeSourceContext = true
 	org = System.getenv("SENTRY_ORG")
 	projectName = "kotlin-spring-boot"
 	authToken = System.getenv("SENTRY_AUTH_KEY")
 }
+
