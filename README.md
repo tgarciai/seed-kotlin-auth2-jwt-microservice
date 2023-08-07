@@ -1,7 +1,7 @@
 # seed-kotlin-auth2-jwt-microservice
 auth2 jwt service using kotlin, spring boot, and spring security
 
-"This projet is a seed to start a auth microservice"
+"This project is a seed to start a auth microservice"
 
 Configure your local environment with
  - Sentry: dsn, sentry organization, sentry token
