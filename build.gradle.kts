@@ -9,19 +9,13 @@ plugins {
 	kotlin("plugin.jpa") version "1.8.22"
 }
 
-sentry {
-	includeSourceContext = true
-	org = System.getenv("SENTRY_ORG")
-	projectName = "kotlin-spring-boot"
-	authToken = System.getenv("SENTRY_AUTH_KEY")
-}
-
 group = "com.cleansoftware"
 version = "0.0.1-SNAPSHOT"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
+
 repositories {
 	mavenCentral()
 }
@@ -66,4 +60,18 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks {
+	bootJar {
+		mainClass = "com.cleansoftware.seed.SeedApplication"
+		archiveFileName.set("app.jar")
+	}
+}
+
+sentry {
+	includeSourceContext = true
+	org = System.getenv("SENTRY_ORG")
+	projectName = "kotlin-spring-boot"
+	authToken = System.getenv("SENTRY_AUTH_KEY")
 }
