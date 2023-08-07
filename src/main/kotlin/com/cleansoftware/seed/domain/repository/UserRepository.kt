@@ -1,6 +1,6 @@
-package com.cleansoftware.seed.repository
+package com.cleansoftware.seed.domain.repository
 
-import com.cleansoftware.seed.domain.User
+import com.cleansoftware.seed.domain.entities.User
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

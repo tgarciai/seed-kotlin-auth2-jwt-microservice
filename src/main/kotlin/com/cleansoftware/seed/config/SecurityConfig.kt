@@ -1,7 +1,8 @@
 package com.cleansoftware.seed.config
 
-import com.cleansoftware.seed.security.JwtTokenAuthenticationFilter
-import com.cleansoftware.seed.security.JwtTokenProvider
+import com.cleansoftware.seed.domain.repository.UserRepository
+import com.cleansoftware.seed.infra.security.JwtTokenAuthenticationFilter
+import com.cleansoftware.seed.infra.security.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -21,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import com.cleansoftware.seed.repository.UserRepository
 
 
 @Configuration
@@ -47,9 +47,8 @@ class SecurityConfig {
             }
             .authorizeHttpRequests {
                 it.requestMatchers("/auth/signin").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/vehicles/**").permitAll()
-                    .requestMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             }
             .addFilterBefore(
@@ -60,11 +59,12 @@ class SecurityConfig {
     }
 
     @Bean
-    fun customUserDetailsService(users: UserRepository): UserDetailsService {
+    fun userDetailsService(users: UserRepository): UserDetailsService {
         return UserDetailsService { username: String ->
-            users.findByUsername(username).orElseThrow { UsernameNotFoundException("Username: $username not found") }
+            users.findByUsername(username).orElseThrow { UsernameNotFoundException("$username username not found") }
         }
     }
+
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder()

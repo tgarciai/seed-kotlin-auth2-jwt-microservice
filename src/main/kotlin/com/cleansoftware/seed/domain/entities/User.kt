@@ -1,12 +1,12 @@
-package com.cleansoftware.seed.domain
+package com.cleansoftware.seed.domain.entities
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotEmpty
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.util.*
 import java.util.stream.Collectors
-import jakarta.validation.constraints.NotEmpty;
-import java.util.UUID
 
 @Entity
 @Table(name = "users")

@@ -1,7 +1,7 @@
 package com.cleansoftware.seed.config
 
 
-import com.cleansoftware.seed.domain.Username
+import com.cleansoftware.seed.domain.entities.Username
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.AuditorAware

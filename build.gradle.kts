@@ -10,13 +10,9 @@ plugins {
 }
 
 sentry {
-	// Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
-	// This enables source context, allowing you to see your source
-	// code as part of your stack traces in Sentry.
 	includeSourceContext = true
-
 	org = System.getenv("SENTRY_ORG")
-	projectName = "kotling-spring-boot"
+	projectName = "kotlin-spring-boot"
 	authToken = System.getenv("SENTRY_AUTH_KEY")
 }
 
@@ -39,19 +35,20 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("io.sentry:sentry-spring-boot-starter-jakarta")
+	implementation("io.sentry:sentry-spring-boot-starter-jakarta:6.27.0")
+	implementation("io.sentry:sentry-logback:6.27.0")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.liquibase:liquibase-core")
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
-	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }
 
 dependencyManagement {

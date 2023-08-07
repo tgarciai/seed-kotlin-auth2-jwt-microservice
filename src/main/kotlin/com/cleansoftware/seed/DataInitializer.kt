@@ -1,7 +1,7 @@
 package com.cleansoftware.seed
 
-import com.cleansoftware.seed.domain.User
-import com.cleansoftware.seed.repository.UserRepository
+import com.cleansoftware.seed.domain.entities.User
+import com.cleansoftware.seed.domain.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -12,6 +12,7 @@ import java.util.function.Consumer
 class DataInitializer : CommandLineRunner {
     @Autowired
     private val users: UserRepository? = null
+
     @Autowired
     private val passwordEncoder: PasswordEncoder? = null
     override fun run(vararg args: String) {

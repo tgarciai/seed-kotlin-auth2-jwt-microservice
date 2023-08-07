@@ -1,15 +1,15 @@
-package com.cleansoftware.seed.security
+package com.cleansoftware.seed.infra.security
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.web.filter.GenericFilterBean
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.util.StringUtils
+import org.springframework.web.filter.GenericFilterBean
 
 class JwtTokenAuthenticationFilter(private val jwtTokenProvider: JwtTokenProvider) : GenericFilterBean() {
 
@@ -20,11 +20,10 @@ class JwtTokenAuthenticationFilter(private val jwtTokenProvider: JwtTokenProvide
     override fun doFilter(req: ServletRequest, res: ServletResponse, filterChain: FilterChain) {
         val token = resolveToken(req as HttpServletRequest)
 
-
         if (token != null && jwtTokenProvider.validateToken(token)) {
             val auth = jwtTokenProvider.getAuthentication(token)
 
-            if (auth != null && auth !is AnonymousAuthenticationToken) {
+            if (auth !is AnonymousAuthenticationToken) {
                 val context: SecurityContext = SecurityContextHolder.createEmptyContext()
                 context.authentication = auth
                 SecurityContextHolder.setContext(context)

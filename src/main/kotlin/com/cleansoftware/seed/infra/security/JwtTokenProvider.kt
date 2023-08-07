@@ -1,4 +1,4 @@
-package com.cleansoftware.seed.security
+package com.cleansoftware.seed.infra.security
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -21,8 +21,9 @@ import javax.crypto.SecretKey
 @Component
 class JwtTokenProvider {
     @Autowired
-    private var jwtProperties: JwtProperties? = null
+    private val jwtProperties: JwtProperties? = null
     private var secretKey: SecretKey? = null
+
     @PostConstruct
     fun init() {
         val secret = Base64.getEncoder().encodeToString(jwtProperties!!.secretKey.toByteArray())
@@ -50,7 +51,7 @@ class JwtTokenProvider {
     fun getAuthentication(token: String?): Authentication {
         val claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).body
         val authoritiesClaim = claims[AUTHORITIES_KEY]
-        val authorities: kotlin.collections.Collection<GrantedAuthority> =
+        val authorities: Collection<GrantedAuthority> =
             if (authoritiesClaim == null) AuthorityUtils.NO_AUTHORITIES else AuthorityUtils.commaSeparatedStringToAuthorityList(
                 authoritiesClaim.toString()
             )
