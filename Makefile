@@ -1,2 +1,2 @@
-start_db:
+start_all_required_services:
 	docker-compose up -d
