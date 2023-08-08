@@ -3,7 +3,7 @@ name: Show env variables
 on: [push]
 
 jobs:
-  mi-job:
+  my-job:
     runs-on: ubuntu-latest
     environment: development
 
