@@ -75,6 +75,6 @@ sentry {
 	includeSourceContext = true
 	org = System.getenv("SENTRY_ORG")
 	projectName = "kotlin-spring-boot"
-	authToken = System.getenv("SENTRY_AUTH_KEY")
+	authToken = System.getenv("SENTRY_AUTH_TOKEN")
 }
 
