@@ -1,0 +1,23 @@
+name: Show env variables
+
+on: [push]
+
+jobs:
+  mi-job:
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use a secret
+        env:
+          MY_SECRET1: ${{ secrets.MY_SECRET }}
+        run: |
+          echo "secret value ${{ secrets.MY_SECRET }}"
+      - name: Use a variable
+        env:
+          MY_VAR1: ${{ env.MY_VAR }}
+        run: |
+          echo "variable value ${{ vars.MY_VAR }}"
