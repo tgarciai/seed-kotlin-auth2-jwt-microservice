@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build --build-arg SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN} --build-arg SENTRY_ORG=${SENTRY_ORG} --build-arg APP_PORT=8080 -f deploy/Dockerfile . -t auth-ms:$(date +%s)
+      run: docker build --build-arg SENTRY_AUTH_TOKEN=${{secrets.SENTRY_AUTH_TOKEN}} --build-arg SENTRY_ORG=${{secrets.SENTRY_ORG}} --build-arg APP_PORT=8080 -f deploy/Dockerfile . -t auth-ms:$(date +%s)
